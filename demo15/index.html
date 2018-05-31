@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>非DOM属性介绍</title>
+    <script src="../build/react.js"></script>
+    <script src="../build/react-dom.js"></script>
+    <script src="../build/browser.min.js"></script>
+</head>
+<body>
+<div id="example"></div>
+<script type="text/babel">
+    // __html是需要这样写的
+    var rawHTML = {
+        __html: '<h2>非DOM属性: danferouslySetInnerHTML标签</h2>'
+    };
+    ReactDOM.render(
+        <div dangerouslySetInnerHTML={rawHTML}></div>,
+        document.getElementById('example')
+    )
+
+    //ref React里面的引用是为了查找DOM元素
+    // key 是提高性能的
+</script>
+</body>
+</html>

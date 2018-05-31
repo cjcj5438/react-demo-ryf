@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>生命周期</title>
+    <!--<script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>-->
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+    <script src="//code.jquery.com/jquery-1.9.1.js"></script>
+    <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+    <script src="../build/react.js"></script>
+    <script src="../build/react-dom.js"></script>
+    <script src="../build/browser.min.js"></script>
+</head>
+<body>
+<div id="example"></div>
+<!--
+初始化阶段可以使用的函数:
+    getDefaultProps (ES6 defaultProps): 只调用一次,实例之间共享引用
+    getInitialState (ES6 super(props){}) : 初始化每个实例特有的状态
+    componentWillMount 组建将要被挂载 rander之前最后一次修改状态的机会
+    render 开始渲染 : 只能访问this.props 和 this.state ,只有一个顶层组建,不允许下盖状态和DOM输出
+    componentDidMount  已经挂载: 成功render并渲染完成真实的DOM之后触发的.可以修改DOM (ReactDOM.findDOMNode(this.refs.myText))
+-->
+<script type="text/babel">
+    var HelloMessage = React.createClass({
+        getDefaultProps: function () {
+            return {
+                text: "123"
+            }
+        },
+        getInitialState: function () {
+            return {
+                loading: false
+            }
+        },
+        componentWillMount: function () {
+        },
+        componentDidMount: function () {
+            var availableTags = [
+                "ActionScript",
+                "AppleScript",
+                "Asp",
+                "BASIC",
+                "C",
+                "C++",
+                "Clojure",
+                "COBOL",
+                "ColdFusion",
+                "Erlang",
+                "Fortran",
+                "Groovy",
+                "Haskell",
+                "Java",
+                "JavaScript",
+                "Lisp",
+                "Perl",
+                "PHP",
+                "Python",
+                "Ruby",
+                "Scala",
+                "Scheme"
+            ];
+            setInterval(() => {
+                this.setState({
+                    loading: true
+                })
+            }, 2000)
+            // react拿取DOM元素
+            console.log(this.refs.uname)
+            // jq 拿取DOM元素
+            console.log($(this.refs.uname))
+
+            $(this.refs.search).autocomplete({
+                source: availableTags
+            });
+            // 更纯粹的DOM节点
+            console.log(ReactDOM.findDOMNode(this.refs.uname));
+        },
+        _change(e) {
+            console.log(e.target)
+        },
+        render: function () {
+            return (
+                <div>
+                    <input type="text" ref="search"/>请输入一个a
+                    <br/>
+                    <input type="text" ref="uname"/>
+                    <br/>
+                    <input type="text" ref="pwd" value={this.props.text} onChange={this._change}/>
+                    <h1>Hello {this.props.name}</h1>
+                    <h1>Hello {this.props.text}</h1>
+                    {/*变量读取要用 {} 给包起来*/}
+                    {!this.state.loading ? <h1>loading</h1> : <h1>ok</h1>}
+                </div>
+            )
+        }
+    });
+
+    ReactDOM.render(
+        <HelloMessage name="John"/>,
+        document.getElementById('example')
+    );
+</script>
+</body>
+</html>

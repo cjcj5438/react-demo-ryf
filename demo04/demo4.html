@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="../build/react.js"></script>
+    <script src="../build/react-dom.js"></script>
+    <script src="../build/browser.min.js"></script>
+</head>
+<body>
+<div id="example"></div>
+<script type="text/babel">
+    // React.createClass 方法用于生产一个组建类
+    // 注意组建的第一个字母必须是大写
+    //而且只能有一个根标签
+    var HelloMessage=React.createClass({
+        render:function () {
+            // this.props可以的获取到属性值
+            return <h1>hellp{this.props.name}</h1>
+        }
+    });
+    ReactDOM.render(
+        <HelloMessage name="John"/>,
+        document.getElementById('example')
+    )
+</script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>状态</title>
+    <script src="../build/react.js"></script>
+    <script src="../build/react-dom.js"></script>
+    <script src="../build/browser.min.js"></script>
+</head>
+<body>
+<div id="example"></div>
+
+<script type="text/babel">
+    class Hello extends React.Component {
+        constructor(props) {
+            super(props)
+            this.state = {
+                name: props.name + "123123"
+            }
+        }
+        render() {
+            return (
+                <div>
+
+                    <h2>{this.state.name}</h2>
+                </div>
+            )
+        }
+    };
+    ReactDOM.render(
+        <Hello name="我的谁"/>,
+        document.getElementById('example')
+    )
+
+    // 属性和状态对比:
+    // 都是纯js 对象
+    // 都会触发render更新
+    // 组建再运行时需要修改的数据就是状态
+    // 就是说属性会触发一次render 而state会每次都触发render
+
+
+    //                             属性      状态
+    //     能否从父组建获取初始值?      o         x
+    //     能否由父组件修改?           o         x
+    //     能否在组建内部设置默认值?     o         o
+    //     能否再组建内部修改?          x         o
+    //     能否设置组建的初始值?        o         x
+    //     能否修改子组件的值?          o         x
+</script>
+</body>
+</html>

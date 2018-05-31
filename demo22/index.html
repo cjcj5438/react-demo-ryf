@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <script src="../build/react.js"></script>
+    <script src="../build/react-dom.js"></script>
+    <script src="../build/browser.min.js"></script>
+    <title>不同表单元素的使用</title>
+</head>
+<body>
+
+<div id="example"></div>
+<script type="text/babel">
+    var HelloMessage = React.createClass({
+        getInitialState: function () {
+            return {
+                helloTo: '',
+                checked: true
+            }
+        },
+        handleChange() {
+            //写自己的代码
+        },
+        render: function () {
+            return (
+                <div>
+                    <h1>Hello {this.props.name}</h1>
+                    <input type="checkbox" value="A" checked={this.state.checked} onChange={this.handleChange}/>选我
+                    <br/>
+                    文本:<textarea value={this.state.helloTo} onChange={this.handleChange}></textarea>
+                    <br/>
+                    选择:
+                    <select value="this.state.hellTo" onChange={this.handleChange}>
+                        <option value="one">1 </option>
+                        <option value="two">2 </option>
+                    </select>
+                </div>
+            )
+        }
+    });
+
+    ReactDOM.render(
+        <HelloMessage name="John"/>,
+        document.getElementById('example')
+    );
+</script>
+</body>
+</html>

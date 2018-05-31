@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <script src="../build/react.js"></script>
+    <script src="../build/react-dom.js"></script>
+    <script src="../build/browser.min.js"></script>
+    <script src="../build/jquery.min.js"></script>
+    <style>
+        .h1 {
+            color: orange;
+        }
+    </style>
+</head>
+<body>
+<div id="example"></div>
+<!--className htmlFor-->
+<script type="text/babel">
+    var style = {
+        'color': 'red',
+        'fontSize': 38
+    }
+    //{  里面可以写自调函数. 可以写三元表 等}
+    var Hello = React.createClass({
+        render: function () {
+            return (
+                <div style={style}>
+                    测试样式
+                    <label htmlFor="name"></label>
+                    <input type="text" id="name"/>
+                    <h1 style={{color:'green'}} className="h1">{this.props.name}</h1>
+                    <h1 className="h1">{function () {
+                        return 1;
+                    }()}</h1>
+                    {/*单行注释*/}
+                    {/*
+                    多
+                    行
+                    注
+                    释
+                    */}
+                </div>
+            )
+        }
+    });
+    //为什么之类的style没有反应呢?  是因为 react 每个主键都是一个沙箱环境;
+    ReactDOM.render(
+        <Hello name='chenjing' style={style}/>,
+        document.getElementById('example')
+    )
+</script>
+</body>
+</html>

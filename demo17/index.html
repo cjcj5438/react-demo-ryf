@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>属性介绍</title>
+    <script src="../build/react.js"></script>
+    <script src="../build/react-dom.js"></script>
+    <script src="../build/browser.min.js"></script>
+</head>
+<body>
+<div id="example"></div>
+
+<script type="text/babel">
+    // 这里为什么要传入key的值呢?  这里是vitDOM 的原理 DOM diff算法更好查找DOM
+    class Hello extends React.Component {
+        render() {
+            var commentNodes = this.props.name.map(function (value, key) {
+                return <div key={key}>hello.{value}</div>
+            });
+            return (
+                <div>
+                    <div>{commentNodes}</div>
+                    <div>{this.props.data1}</div>
+                    <div>hello,{this.props.name1}和{this.props.name2}</div>
+                    <h1>{this.props.title}</h1>
+                </div>
+
+            )
+        }
+    };
+    //ES6中   propTypes 不能写在 Class类里面
+    Hello.propTypes = {
+        title: React.PropTypes.String
+    };
+    Hello.defaultProps = {
+        title: "123"
+    };
+    var data = "通过变量传入";
+    var props = {
+        name1: 'jack',
+        name2: 'Tom'
+    }
+    ReactDOM.render(
+        // 这里的属性可以传什么?
+        // name="字符串"
+        // name={123} 像js 中的变量来传值
+        // name={"string"} 文本
+        // name={[1,2,3]}
+        // name={variable}
+        <Hello name={[123, "我是", "陈靖"]} data1={data} {...props}/>,
+        document.getElementById('example')
+    )
+</script>
+</body>
+</html>

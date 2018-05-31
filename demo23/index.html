@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <script src="../build/react.js"></script>
+    <script src="../build/react-dom.js"></script>
+    <script src="../build/browser.min.js"></script>
+    <title>事件处理函数</title>
+</head>
+<body>
+<div id="example"></div>
+<!--
+触摸:
+    onTouchCancel
+    onTouchEnd
+    onTouchMove
+    ONTouchStart
+键盘:
+    onKeyDown
+    onKeyPress 按压
+    onKeyUp
+剪切:
+    onCopy
+    onCut
+    onPaste
+表单:
+    onChange
+    onInput
+    onSubmit
+焦点:
+    onFocus
+    onBlur
+UI元素
+    onScroll 滚动Drop
+滚动:
+    onWheel 转动
+鼠标:
+    onClick
+    onContextMenu
+    onDoubleClick
+    onMouseDown
+    onMouseEnter
+    onMouseLeave
+    onMouseMove
+    onMouseOut
+    onMouseOver
+    onMouseUp
+鼠标拖拽:
+    onDrop 落下
+    onDrag 拖
+    onDragEnd
+    onDragEnter
+    onDragExit
+    onDragLeave
+    onDragOver
+    onDragStart
+-->
+<!--
+事件中的this
+可以是this .可以是e.target
+-->
+<script type="text/babel">
+    var HelloMessage = React.createClass({
+        handleChange(event) {
+            this.setState({
+                data:event.target.value
+            })
+        },
+        getInitialState: function () {
+            return {
+                data1: "hello",
+                data2: "world"
+            }
+        },
+        render: function () {
+            return (
+                <form>
+                    <input type="text" ref="uname"
+                           onChange={this.handleChange.bind(this,"data1")}
+                           value={this.state.data1}/>
+                    <input type="text" ref="uname"
+                           onChange={this.handleChange.bind(this,"data2")}
+                           value={this.state.data2}/>
+                </form>
+            )
+        }
+    });
+
+    ReactDOM.render(
+        <HelloMessage name="John"/>,
+        document.getElementById('example')
+    );
+</script>
+</body>
+</html>

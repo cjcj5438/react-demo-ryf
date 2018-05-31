@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <script src="../build/react.js"></script>
+    <script src="../build/react-dom.js"></script>
+    <script src="../build/browser.min.js"></script>
+    <title>运行中的阶段介绍</title>
+</head>
+<body>
+<!--
+运行中阶段可以使用的函数:
+    ** componentWillReceiveProps:父组件修改属性触发,可以修改新属性和状态
+    ** shouldComponentUpdate: 返回false会阻止render调用 这对于强化性能很重要. 比如说有5个<li> 我只像操作第三个<li> 那么就要用到这个方法屏蔽调其他<li>
+    componentWillUpdate : 不能修改属性和状态
+    render
+    componentDidUpdate : 可以修改
+销毁阶段:
+    componentWillUnmount:在删除组件之前进行清理操作,比如计时器和事件监听器
+-->
+<div id="example"></div>
+<script type="text/babel">
+    //TODO:子组件
+    var HelloMessage = React.createClass({
+        componentDidUpdate(data) {
+            console.log('componentDidUpdate', data)
+        },
+        componentWillUpdate(data) {
+            console.log('componentWillUpdate', data)
+        },
+        componentWillReceiveProps: function (nextProps) {
+            console.log("渲染componentWillReceiveProps", nextProps)
+        },
+        shouldComponentUpdate(nextProps) {
+            console.log("不渲染这个内容shouldComponentUpdate", nextProps)
+            // return false;
+            return true;
+        },
+        componentWillUnmount() {
+            console.log("已经清除")
+        },
+        __change(e) {
+            if (e.target.value == 123) {
+                alert(e.target.value)
+                ReactDOM.unmountComponentAtNode(document.getElementById('example'))
+            }
+        },
+        render: function () {
+            return (
+                <div>
+                    <input type="text" onChange={this.__change}/>
+                    <h1>
+                        {this.props.name}
+                        #
+                        {this.props.nav}
+                        #
+                        {this.props.data}
+                    </h1>
+                </div>
+
+            );
+        }
+    });
+    //TODO:父组件
+    var HelloWorld = React.createClass({
+        getInitialState: function () {
+            return {
+                data: "父容器的状态"
+            }
+        },
+        handle() {
+            this.setState({
+                data: "父容器的状态被改变"
+            })
+        },
+
+        render: function () {
+            return (
+                <div onClick={this.handle}>
+                    <p>组件的应用</p>
+                    <HelloMessage name="在子组件的值" nav={this.props.nav} data={this.state.data}></HelloMessage>
+                </div>
+            );
+        }
+    });
+    /*
+      组建嵌套不能这样写
+    * <HelloWorld>
+    *      <HelloMessage name="John"></HelloMessage>
+        </HelloWorld>,
+    *
+    * */
+    ReactDOM.render(
+        <HelloWorld nav="在父组件的值">
+        </HelloWorld>
+        ,
+        document.getElementById('example')
+    );
+</script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../build/react.js"></script>
+    <script src="../build/react-dom.js"></script>
+    <script src="../build/browser.min.js"></script>
+</head>
+<body>
+<div id="example"></div>
+<script type="text/babel">
+    var names = ["alic", 'emi', 'kate'];
+    ReactDOM.render(
+        <div>
+            {
+                names.map(function (name, index) {
+                    //TODO:注释页面上好像获取不到 key
+                    return <div key="{index}">hello,{name}!</div>
+                })
+            }
+        </div>,
+        document.getElementById("example")
+    );
+</script>
+
+</body>
+</html>

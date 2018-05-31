@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>答案是不是DOM</title>
+    <script src="../build/react.js"></script>
+    <script src="../build/react-dom.js"></script>
+    <script src="../build/browser.min.js"></script>
+</head>
+<body>
+<div id="example"></div>
+<!--web 基于DOm 而DOM很慢-->
+<!--DOM拖慢javascript-->
+<!--网页是单线程的-->
+<!--网页没有硬件加速-->
+<!--跨平台-->
+<!--免安装-->
+<!--快速部署-->
+<!--超链接-->
+
+<!--如果将网页变成一个canvas ,这样就绕开了DOM, 降低了操作   canvas可以硬件, 这样的就提高了性能. -->
+<a href="https://github.com/Flipboard/react-canvas">react-canvas</a>
+<script type="text/babel">
+    var React = require('react');
+    var ReactCanvas = require('react-canvas');
+
+    var Surface = ReactCanvas.Surface;
+    var Image = ReactCanvas.Image;
+    var Text = ReactCanvas.Text;
+
+    var MyComponent = React.createClass({
+
+        render: function () {
+            var surfaceWidth = window.innerWidth;
+            var surfaceHeight = window.innerHeight;
+            var imageStyle = this.getImageStyle();
+            var textStyle = this.getTextStyle();
+
+            return (
+                <Surface width={surfaceWidth} height={surfaceHeight} left={0} top={0}>
+                    <Image style={imageStyle} src='...' />
+                    <Text style={textStyle}>
+                        Here is some text below an image.
+                    </Text>
+                </Surface>
+            );
+        },
+
+        getImageHeight: function () {
+            return Math.round(window.innerHeight / 2);
+        },
+
+        getImageStyle: function () {
+            return {
+                top: 0,
+                left: 0,
+                width: window.innerWidth,
+                height: this.getImageHeight()
+            };
+        },
+
+        getTextStyle: function () {
+            return {
+                top: this.getImageHeight() + 10,
+                left: 0,
+                width: window.innerWidth,
+                height: 20,
+                lineHeight: 20,
+                fontSize: 12
+            };
+        }
+
+    });
+</script>
+</body>
+</html>
